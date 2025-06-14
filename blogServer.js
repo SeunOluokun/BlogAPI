@@ -157,6 +157,14 @@ app.get('/logout', authMiddleware({ required: true }), (req, res) => {
         res.status(500).send('Error logging out');
     }
 });
+
+app.use((req, res) => {
+  res.status(404).render('404', {
+    user: res.locals.user || null,
+    title: '404 - Not Found'
+  });
+});
+
 app.listen(PORT, () => {
     console.log(`Blog server is running on http://localhost:${PORT}`);
 });
