@@ -42,9 +42,6 @@ app.set('views', 'views');
 
 connectToDatabase();
 
-
-app.get('/', (req, res) => res.send('App is running'));
-
 app.get('/', async (req, res) => {
   try {
     const { author, title, tags } = req.query;
