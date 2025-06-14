@@ -4,18 +4,23 @@ require('dotenv').config();
 
 const MONGO_DB_CONNECTION_URL = process.env.MONGO_DB_CONNECTION_URL;
 
-function connectToDatabase(){
+async function connectToDatabase() {
+    if (!MONGO_DB_CONNECTION_URL) {
+        console.error('MONGO_DB_CONNECTION_URL is not defined in environment variables.');
+        process.exit(1); // Exit app if env var is missing
+    }
 
-    mongoose.connect(MONGO_DB_CONNECTION_URL);
+    try {
+        await mongoose.connect(MONGO_DB_CONNECTION_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
 
-    mongoose.connection.on('connected', ()=>{
-        console.log(`DB Conection successfull!`);
-    })
-    // the event to listen on . on connected connection event , do this.....
-    mongoose.connection.on('error', (err)=>{
-        console.log(err);
-        console.log("An error occured connecting to MongoDB");
-})
+        console.log('Connected to MongoDB successfully.');
+    } catch (error) {
+        console.error('MongoDB connection failed:', error.message);
+        process.exit(1); // Stop app if DB fails to connect
+    }
 }
 
-module.exports = {connectToDatabase}
+module.exports = { connectToDatabase };
