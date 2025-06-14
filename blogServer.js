@@ -39,7 +39,11 @@ app.use(
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+
 connectToDatabase();
+
+
+app.get('/', (req, res) => res.send('App is running'));
 
 app.get('/', async (req, res) => {
   try {
@@ -156,7 +160,6 @@ app.get('/logout', authMiddleware({ required: true }), (req, res) => {
         res.status(500).send('Error logging out');
     }
 });
-
 app.listen(PORT, () => {
     console.log(`Blog server is running on http://localhost:${PORT}`);
 });
