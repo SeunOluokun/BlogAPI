@@ -5,6 +5,9 @@
      "start": "node blogServer.js",
      "build": "echo 'Build step not needed' && exit 0"
   },
+  "engines": {
+  "node": ">=18.0.0"
+},
   "keywords": [],
   "author": "Seun Oluokun",
   "license": "ISC",
