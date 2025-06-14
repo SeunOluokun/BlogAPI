@@ -1,12 +1,12 @@
 {
   "name": "blogs",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-     "start": "node blogServer.js"
+     "start": "node blogServer.js",
+     "build": "echo 'Build step not needed' && exit 0"
   },
   "keywords": [],
-  "author": "",
+  "author": "Seun Oluokun",
   "license": "ISC",
   "description": "",
   "dependencies": {
