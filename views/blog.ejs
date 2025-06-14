@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= blog.title %></title>
+</head>
+<body>
+
+<%- include ('layout.ejs') %>
+<% if (user && user._id.toString() === blog.author._id.toString()) { %>
+  <a href="/edit/<%= blog._id%>?%>">Edit Blog</a>
+<% } %>
+
+
+<h1><%= blog.title %></h1>
+<p><strong>By:</strong> <%= blog.author.first_name %> <%= blog.author.last_name %> | <%= blog.reading_time %> min read</p>
+<p><strong>Tags:</strong> <%= blog.tags.join(', ') %></p>
+<p><strong>Read Count:</strong> <%= blog.read_count %></p>
+<hr>
+<p><%= blog.body %></p>
+
+</body>
+</html>
+
+
+

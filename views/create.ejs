@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Blog</title>
+</head>
+<body>
+
+<%- include ('layout.ejs') %>
+
+<h1>Create a New Blog</h1>
+<form method="POST" action="/blogs/">
+
+  <label>State:</label><br>
+  <select name="state" required>
+    <option value="draft">Draft</option>
+    <option value="published">Published</option>
+  </select><br><br>
+<br>
+<br>
+  <label>Title:</label><br>
+  <input type="text" name="title" required><br><br>
+
+  <label>Description:</label><br>
+  <textarea name="description"></textarea><br><br>
+
+  <label>Tags (comma separated):</label><br>
+  <input type="text" name="tags"><br><br>
+
+  <label>Body:</label><br>
+  <textarea name="body" required rows="10" cols="50"></textarea><br><br>
+
+  <button type="submit">Submit</button>
+</form>
+
+
+</body>
+</html>

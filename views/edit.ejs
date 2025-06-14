@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update Blog</title>
+</head>
+<body>
+
+<%- include('layout.ejs') %>
+
+<h1>Edit Blog: <%= blog.title %></h1>
+
+<form action="/blogs/<%= blog._id %>?_method=PUT" method="POST">
+  <label>Title:</label><br>
+  <input type="text" name="title" value="<%= blog.title %>" required><br><br>
+
+  <label>Body:</label><br>
+  <textarea name="body" rows="10" cols="50" required><%= blog.body %></textarea><br><br>
+
+  <label>Status:</label><br>
+  <select name="state" required>
+    <option value="draft">Draft</option>
+    <option value="published">Published</option>
+  </select><br><br>
+
+  <label>Tags (comma-separated):</label><br>
+  <input type="text" name="tags" value="<%= blog.tags%>"><br><br>
+
+  <button type="submit">Update Blog</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<body>
+<%- include ('layout.ejs') %>
+
+<h1>Sign Up</h1>
+    <form action="auth/signup" method="POST">
+    
+  <label>First Name:</label><br>
+  <input type="text" name="first_name" required><br><br>
+
+  <label>Last Name:</label><br>
+  <input type="text" name="last_name" required><br><br>
+
+  <label>Email:</label><br>
+  <input type="email" name="email" required><br><br>
+
+  <label>Password:</label><br>
+  <input type="password" name="password" required><br><br>
+
+  <button type="submit">Sign Up</button>  <br>
+        <p>Already have an account? <a href="/login">Login</a></p>
+    
+</form>
+</body>
+</html>

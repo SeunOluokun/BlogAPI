@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Home</title>
+</head>
+<body>
+
+    <%- include('layout.ejs') %>
+
+    <% if (user) { %>
+        <p>Welcome <b><%= user.first_name %></b> to your Blog Profile! </p>
+    <% } else { %>
+        <p>Welcome to our Blog Home Page</p>
+        <p>A member? <a href="/login">Login</a> Here!</p>
+        <p>Considering Registering? Please <a href="/signup">Sign up</a> Here!</p>
+    <% } %>
+
+    <h1>Latest Blogs</h1>
+
+    <% if (user && requestUrl.startsWith('/blogs')) { %>
+        <form method="GET" action="/blogs" id="filterForm">
+            <label for="stateFilter">Filter:</label>
+            <select name="state" id="stateFilter" onchange="document.getElementById('filterForm').submit()">
+                <option value="">All</option>
+                <option value="published" <%= (state === 'published') ? 'selected' : '' %>>Published</option>
+                <option value="draft" <%= (state === 'draft') ? 'selected' : '' %>>Draft</option>
+            </select>
+        </form>
+    <% } %>
+
+    <% if (Array.isArray(blogs) && blogs.length > 0) { %>
+        <p>Here are the latest blogs:</p>
+        <ul style="list-style: none; padding: 0;">
+            <% blogs.forEach(function(blog) { %>
+                <li>
+                    <div>
+                        <h2>
+                            <a href="/blogs/<%= blog._id %>?_method=GET"><%= blog.title %></a>
+                        </h2>
+                        <%
+                            function stripHtml(html) {
+                                return html.replace(/<[^>]*>?/gm, '');
+                            }
+                            const preview = stripHtml(blog.body).substring(0, 100);
+                            const state = stripHtml(blog.state).substring(0, 100);
+                        %>
+                        <p><%= preview %>...</p>
+                        <div>Status : <b><%= state%></b></div><br>
+                        <!-- Delete Button -->
+                        <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this blog?')">Delete</button>
+                        </form>
+                        
+                    </div>
+                    <hr>
+                </li>
+            <% }) %>
+        </ul>
+        <div class="pagination">
+            <% if (hasPrevPage) { %>
+                <a href="?page=<%= currentPage - 1 %>&author=<%= author %>&title=<%= title %>&tags=<%= tags %><%= requestUrl === '/blogs' ? '&state=' + state : '' %>">Previous</a>
+            <% } %>
+            <span>Page <%= currentPage %></span>
+            <% if (hasNextPage) { %>
+                <a href="?page=<%= currentPage + 1 %>&author=<%= author %>&title=<%= title %>&tags=<%= tags %><%= requestUrl === '/blogs' ? '&state=' + state : '' %>">Next</a>
+            <% } %>
+        </div>
+    <% } else { %>
+        <p>No blogs available at the moment.</p>
+    <% } %>
+
+</body>
+</html>
